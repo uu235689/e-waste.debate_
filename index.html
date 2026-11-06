@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E-Waste Debate Lab</title>
+<style>
+:root{
+  --ink:#173d42;
+  --green:#16695e;
+  --light:#edf5f1;
+  --line:#d4e4dc;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--light);
+  color:var(--ink);
+  font-family:Arial,"Noto Sans TC",sans-serif;
+  line-height:1.8;
+}
+header{
+  background:#143e42;
+  color:white;
+  padding:40px 24px;
+}
+header>div,main{max-width:1100px;margin:auto}
+header small{color:#b5dfca;letter-spacing:2px}
+h1{font-size:clamp(28px,5vw,46px);margin:12px 0}
+h2,h3{line-height:1.5}
+main{padding:20px}
+section,.card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:24px;
+  margin:18px 0;
+}
+.notice{
+  background:#fff5d9;
+  border-left:5px solid #d3a33c;
+  padding:14px 18px;
+  border-radius:8px;
+}
+nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:18px 0;
+}
+button,select,input,textarea{font:inherit}
+button{
+  padding:10px 16px;
+  background:var(--green);
+  color:white;
+  border:0;
+  border-radius:9px;
+  cursor:pointer;
+}
+button.secondary{background:#e5eee8;color:var(--ink)}
+button.active{background:#bce4ca;color:#153e34}
+button:disabled{opacity:.45;cursor:not-allowed}
+label{display:block;font-weight:bold;margin:16px 0 6px}
+input,textarea,select{
+  padding:11px;
+  border:1px solid #afc8ba;
+  border-radius:8px;
+  background:white;
+  color:var(--ink);
+}
+input,textarea{width:100%}
+textarea{min-height:105px;resize:vertical}
+select{max-width:100%}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:16px;
+}
+.role{
+  padding:16px;
+  background:#f0f7f2;
+  border-radius:10px;
+}
+.role strong{display:block;font-size:20px}
+details{
+  background:#fff8e8;
+  border:1px solid #ead8a7;
+  padding:16px;
+  border-radius:10px;
+  margin:16px 0;
+}
+summary{cursor:pointer;font-weight:bold}
+.english{font-size:20px;color:#16695e;font-weight:bold}
+.hint{color:#5c706a;font-size:14px}
+.pill{
+  display:inline-block;
+  background:#e4f1e8;
+  padding:4px 12px;
+  border-radius:20px;
+}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}
+.table-wrap{overflow:auto}
+[hidden]{display:none!important}
+#status{
+  position:sticky;
+  top:0;
+  z-index:10;
+  padding:10px 18px;
+  background:#dcefe1;
+}
+@media print{
+  header,nav,#status,.notice,.no-print,
+  #learn,#think,#draw,#prepare,#overview{display:none!important}
+  #speech{display:block!important;border:0;margin:0;padding:0}
+  body{background:white}
+  main{padding:0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <small>INTERNATIONAL EDUCATION × INFORMATION TECHNOLOGY</small>
+    <h1>E-Waste Debate Lab</h1>
+    <p>電子垃圾辯論實驗室</p>
+    <p>Who is responsible for our digital waste?</p>
+  </div>
+</header>
+
+<div id="status" role="status" aria-live="polite">
+  不需登入，直接開始使用。
+</div>
+
+<main>
+  <div class="notice">
+    <strong>純 HTML 版本｜不需帳號、通行碼或驗證碼</strong><br>
+    資料保存在目前瀏覽器，不會同步到其他裝置或 Google Sheets。
+    六組抽籤請集中在老師的同一台裝置進行，才能共同計算角色名額。
+    清除瀏覽器資料或使用無痕模式，可能無法保留紀錄。
+  </div>
+
+  <nav class="no-print" aria-label="課程導覽">
+    <button data-page="learn">① 老師帶領</button>
+    <button data-page="think">② 情境投票</button>
+    <button data-page="draw">③ 六組抽籤</button>
+    <button data-page="prepare">④ 小組準備</button>
+    <button data-page="speech">⑤ 英文講稿</button>
+    <button data-page="overview">⑥ 本機進度</button>
+  </nav>
+
+  <div class="card no-print">
+    <label for="group">目前操作組別</label>
+    <select id="group">
+      <option value="1">第 1 組</option>
+      <option value="2">第 2 組</option>
+      <option value="3">第 3 組</option>
+      <option value="4">第 4 組</option>
+      <option value="5">第 5 組</option>
+      <option value="6">第 6 組</option>
+    </select>
+    <p id="groupSummary"></p>
+    <p class="hint">
+      同一瀏覽器中的組別共用本機資料。每次操作前請確認組別；
+      本版本沒有身分驗證，也沒有私人教師後台。
+    </p>
+  </div>
+
+  <section id="learn">
+    <h2>Teacher’s Corner｜老師帶領</h2>
+    <p>先聽老師引導，再開始小組任務。</p>
+
+    <h3>01｜The Phone in Your Pocket</h3>
+    <p class="english">Where is your last phone now?</p>
+    <p>你的上一支手機，現在在哪裡？</p>
+
+    <details>
+      <summary>老師講稿｜導入約 5 分鐘</summary>
+      <p>
+        今天我們要討論一個跟每個人都有關的問題：
+        當我們換了新手機，舊手機最後去了哪裡？
+        先不用填作業，請想一想你上一支手機。
+      </p>
+      <p>
+        How many phones have you owned?
+        你到現在用過幾支手機？可以先用手指比數字。
+        接著試著說：I have owned two phones.
+      </p>
+      <p>
+        我先示範：My old phone is in a drawer.
+        我的舊手機在抽屜裡。
+        現在請和旁邊同學說：My old phone is ___.
+      </p>
+      <p>
+        如果學生回答 At home.、In a drawer. 或
+        I gave it to my brother.，可以接：
+        有些手機被收起來，有些繼續由別人使用。
+        哪一種比較能延長使用時間？為什麼？
+      </p>
+      <p>
+        舊手機如果還有人使用，不必然就是垃圾。
+        今天我們不只問如何回收，也要問：
+        為什麼電子產品這麼快就不再被使用？
+      </p>
+    </details>
+
+    <h3>02｜What Did We Discover?</h3>
+    <label for="videoTitle">課堂影片名稱</label>
+    <input id="videoTitle" maxlength="150" placeholder="填入原課程影片名稱">
+    <label for="videoUrl">影片網址</label>
+    <input id="videoUrl" type="url" placeholder="https://...">
+    <div class="actions">
+      <button id="saveVideo">儲存影片設定</button>
+      <button id="openVideo" class="secondary">開啟影片</button>
+    </div>
+
+    <div class="grid">
+      <div class="role">
+        <strong>Where?</strong>
+        Where does e-waste go?<br>電子垃圾去了哪裡？
+      </div>
+      <div class="role">
+        <strong>Who?</strong>
+        Who is affected?<br>誰受到影響？
+      </div>
+      <div class="role">
+        <strong>Why?</strong>
+        Why is it a global issue?<br>為什麼是全球議題？
+      </div>
+    </div>
+
+    <details>
+      <summary>老師講稿｜影片回顧約 5 分鐘</summary>
+      <p>
+        看影片時，請記下一個畫面或一句話，以及大約的時間。
+        我們先找證據，再說自己的意見。
+      </p>
+      <p>
+        In the video, I see ___.
+        你實際看到了什麼？可以指出幾分幾秒嗎？
+        如果只回答 people 或 old phones，我會再問：
+        What are the people doing? What happens to the phones?
+      </p>
+      <p>
+        老師把答案整理成 place、people、problem 三欄。
+        請大家區分：「我看到什麼」是觀察；
+        「我認為可能造成什麼」是推論。
+        如果影片沒有提供數字，不要自己填數字。
+      </p>
+      <p>
+        Why is it a global issue?
+        影片有沒有提供不同地方或不同人之間的關係？
+        沒有直接證據時，先記成需要查證的問題。
+      </p>
+      <p>
+        接下來用資訊科的角度想：
+        為什麼手機明明還能開機，我們卻可能不繼續使用？
+      </p>
+    </details>
+
+    <h3>03｜The Hidden Tech Problem</h3>
+    <div class="grid">
+      <div class="role">
+        <strong>Repairability</strong>
+        維修性：電池容易換嗎？零件與維修費能負擔嗎？
+        <p>It is easy / hard to repair.</p>
+      </div>
+      <div class="role">
+        <strong>Software updates</strong>
+        軟體更新：裝置是否仍有安全更新與支援？
+        <p>The phone needs updates.</p>
+      </div>
+      <div class="role">
+        <strong>Data security</strong>
+        資料安全：交出舊手機前，如何依官方指引處理資料？
+        <p>We must protect our data.</p>
+      </div>
+    </div>
+
+    <details>
+      <summary>老師講稿｜資訊概念約 5–7 分鐘</summary>
+      <p>
+        假設手機還能開機，只是電池撐不久。
+        你會換電池，還是換手機？請先選，再說理由。
+      </p>
+      <p>
+        第一個概念是 Repairability。
+        零件是否容易取得？電池能不能換？維修費能否負擔？
+        這些條件只靠消費者就能決定嗎？
+      </p>
+      <p>
+        第二個概念是 Software updates。
+        硬體能用，不代表軟體永遠安全。
+        安全更新能修補漏洞；停止更新可能增加風險。
+        誰能決定支援多久？
+      </p>
+      <p>
+        第三個概念是 Data security。
+        把舊手機交出去時，你擔心照片、帳號還是密碼？
+        應先備份、登出帳號，再依設備官方指引清除資料，
+        並選可信任的回收管道。只刪幾張照片不等於安全清除。
+      </p>
+      <p>
+        所以不能只問要不要回收，
+        還要問能不能修、軟體是否有支援、資料如何處理。
+        現在請選一個概念，說說政府、企業或消費者能做什麼。
+      </p>
+    </details>
+  </section>
+
+  <section id="think" hidden>
+    <h2>Think Before You Debate｜全班情境投票</h2>
+    <label for="scenario">選擇情境</label>
+    <select id="scenario">
+      <option value="0">情境一：手機停止更新</option>
+      <option value="1">情境二：維修太昂貴</option>
+      <option value="2">情境三：擔心資料外洩</option>
+    </select>
+
+    <h3 id="scenarioEnglish"></h3>
+    <p id="scenarioChinese"></p>
+    <p class="english">Who should take responsibility?</p>
+    <p>每組每題一票，可更改；請在老師這台裝置依序記錄。</p>
+
+    <div id="voteButtons" class="actions"></div>
+    <p id="myVote"></p>
+    <div id="voteResults" class="grid"></div>
+
+    <details>
+      <summary>老師講稿｜投票與追問約 5 分鐘</summary>
+      <p>
+        每組先討論三十秒，選出最應該先採取行動的一方。
+        用一句英文解釋：We choose ___ because ___.
+      </p>
+      <p>
+        票數最多代表多數組目前的選擇，不代表唯一正解。
+        請一組說理由，再請不同選擇的一組補充。
+      </p>
+      <p>
+        What is one problem with your choice?
+        選政府，誰執行？選企業，成本怎麼辦？
+        選消費者，每個人都有足夠資訊與選擇嗎？
+      </p>
+      <p>
+        剛才你們可以選支持的一方。
+        接下來隨機抽角色，練習從另一個位置思考。
+      </p>
+    </details>
+  </section>
+
+  <section id="draw" hidden>
+    <h2>Draw Your Role｜六組限額抽籤</h2>
+    <div class="notice">
+      抽籤請集中在同一台裝置、同一個分頁依序進行。
+      不同裝置各自開啟這份 HTML，不會共享名額。
+    </div>
+    <p>Government、Company、Consumer 各兩組；同組抽完不可重抽。</p>
+    <div id="remaining" class="grid"></div>
+    <div class="actions">
+      <button id="drawButton">為目前組別抽籤</button>
+    </div>
+    <h3 id="drawResult"></h3>
+    <div id="drawBoard" class="table-wrap"></div>
+
+    <details>
+      <summary>老師講稿｜抽籤與分場</summary>
+      <p>
+        請確認目前組別，再由老師操作抽籤。
+        每個角色只有兩組，抽完就固定。
+      </p>
+      <p>
+        抽到政府，不代表其他人沒有責任。
+        你的任務是提出：這個角色能做什麼？
+        有什麼困難？需要別人怎麼合作？
+      </p>
+      <p>
+        系統分成 A、B 兩場，每場政府、企業、消費者各一組。
+        請各組用一句話報告：
+        We are the ___ group. We can ___.
+      </p>
+    </details>
+  </section>
+
+  <section id="prepare" hidden>
+    <h2>Build Your Argument｜小組準備</h2>
+    <p id="progress" class="pill"></p>
+
+    <label for="level">英文鷹架程度</label>
+    <select id="level">
+      <option value="basic">Basic｜簡短句型</option>
+      <option value="guided">Guided｜連結理由與證據</option>
+      <option value="challenge">Challenge｜補充限制與合作</option>
+    </select>
+    <p id="scaffold" class="english"></p>
+    <p id="roleGuide"></p>
+
+    <details>
+      <summary>老師講稿｜小組任務與巡組提問</summary>
+      <p>
+        先分 Speaker、Researcher、Tech Expert、Rebuttal Speaker。
+        第五位可當 Timekeeper。大家一起討論，由一台裝置填寫。
+      </p>
+      <p>
+        每個主張要搭配兩項不同影片證據，寫清片名與時間，
+        並解釋證據如何支持主張。
+      </p>
+      <p>
+        巡組時我會問：
+        這一句是主張還是證據？證據在影片哪裡？
+        為什麼能支持你們的角色？
+      </p>
+      <p>
+        反駁可以先說 We understand your point, but ___.
+        再提出理由，不只說 You are wrong.
+      </p>
+      <p>
+        整理講稿按鈕只會組合已有文字，不會查證內容。
+        請每位發言者至少練一次，並定期儲存草稿。
+      </p>
+    </details>
+
+    <fieldset id="workFields" style="border:0;padding:0;margin:0">
+      <h3>Mission 1｜Build Your Team</h3>
+      <label for="members">班級與組員座號</label>
+      <textarea id="members" maxlength="1500"
+        placeholder="Class 101; No. 01, 05, 12, 20"></textarea>
+      <label for="jobs">小組分工</label>
+      <textarea id="jobs" maxlength="1500"
+        placeholder="Speaker: No. 01; Researcher: No. 05; Tech Expert: No. 12; Rebuttal Speaker: No. 20"></textarea>
+
+      <h3>Mission 2｜Know Your Position</h3>
+      <label for="position">角色可以做什麼？有什麼困難？</label>
+      <textarea id="position" maxlength="1500"
+        placeholder="We are the ___. We can ___. It is hard because ___."></textarea>
+
+      <h3>Mission 3｜Claim and Evidence</h3>
+      <label for="claim">Our Claim｜我們的主張</label>
+      <textarea id="claim" maxlength="1500"
+        placeholder="We believe ___ should take responsibility because ___."></textarea>
+
+      <div class="grid">
+        <div>
+          <label for="evidence1">影片證據一</label>
+          <textarea id="evidence1" maxlength="1500"
+            placeholder="In the video, we see ___."></textarea>
+          <label for="source1">片名與時間</label>
+          <input id="source1" maxlength="500" placeholder="影片名稱，00:35">
+          <label for="why1">為什麼支持主張？</label>
+          <textarea id="why1" maxlength="1500"
+            placeholder="This supports our claim because ___."></textarea>
+        </div>
+        <div>
+          <label for="evidence2">影片證據二</label>
+          <textarea id="evidence2" maxlength="1500"
+            placeholder="The video shows ___."></textarea>
+          <label for="source2">片名與時間</label>
+          <input id="source2" maxlength="500" placeholder="影片名稱，01:10">
+          <label for="why2">為什麼支持主張？</label>
+          <textarea id="why2" maxlength="1500"
+            placeholder="This is important because ___."></textarea>
+        </div>
+      </div>
+
+      <h3>Mission 4｜Prepare Your Defense</h3>
+      <label for="rebuttal">回應另一方的質疑</label>
+      <textarea id="rebuttal" maxlength="1500"
+        placeholder="We understand your point, but ___. Our evidence shows ___."></textarea>
+      <label for="question">要問對方的英文問題</label>
+      <textarea id="question" maxlength="1500"
+        placeholder="How can you help people ___? / Who will pay for ___?"></textarea>
+
+      <h3>Mission 5｜Final Debate Script</h3>
+      <button id="generateButton" type="button">用目前答案整理英文講稿</button>
+      <label for="script">英文講稿，可自行修改</label>
+      <textarea id="script" maxlength="12000" style="min-height:280px"></textarea>
+    </fieldset>
+
+    <div class="actions">
+      <button id="saveButton">儲存本機草稿</button>
+      <button id="submitButton">標記為已完成</button>
+      <button id="reopenButton" class="secondary">重新開放編輯</button>
+    </div>
+    <p class="hint">完成標記只保存在這台瀏覽器，不會傳送給老師。</p>
+  </section>
+
+  <section id="speech" hidden>
+    <h2>Our Debate Card｜英文辯論講稿卡</h2>
+    <p id="speechHeading"></p>
+    <pre id="speechText"></pre>
+    <div class="actions no-print">
+      <button id="printButton">列印／另存 PDF</button>
+    </div>
+
+    <details class="no-print">
+      <summary>老師講稿｜主持辯論與收尾</summary>
+      <p>
+        Welcome to our E-Waste Debate Lab.
+        今天評估的是理由與證據，請聽完對方再回應。
+      </p>
+      <p>
+        每場依序進行：各組開場四十五秒、證據四十五秒、
+        反駁三十秒、互問共兩分鐘、結語各二十秒。
+        A 場先，B 場後，另一場擔任觀察員。
+      </p>
+      <p>
+        串場可以說：
+        Thank you. What is your evidence?
+        Now, let us hear from the company group.
+        Please respond to their point.
+      </p>
+      <p>
+        卡住時可說 We think ___. Our evidence is ___.
+        沒聽懂可說 Please say that again.
+      </p>
+      <p>
+        兩場結束後，請觀察員指出一項最有說服力的證據。
+        最後問：What can all three groups do together?
+      </p>
+      <p>
+        回到今天的開場：下次不再使用手機時，你會多考慮什麼？
+        請完成離堂句：One thing I can do is ___.
+      </p>
+    </details>
+  </section>
+
+  <section id="overview" hidden>
+    <h2>本機六組進度</h2>
+    <p>此處只顯示目前瀏覽器內的紀錄，不是跨裝置後台。</p>
+    <div id="overviewTable" class="table-wrap"></div>
+    <div class="actions">
+      <button id="exportButton">下載本機資料備份</button>
+    </div>
+  </section>
+</main>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const STORAGE_KEY = "ewaste-debate-html-v1";
+const ROLES = ["Government", "Company", "Consumer"];
+const ROLE_NAMES = {
+  Government:"政府 Government",
+  Company:"企業 Company",
+  Consumer:"消費者 Consumer"
+};
+const FIELDS = [
+  "members","jobs","position","claim",
+  "evidence1","source1","why1",
+  "evidence2","source2","why2",
+  "rebuttal","question","script"
+];
+const PAGES = ["learn","think","draw","prepare","speech","overview"];
+const SCENARIOS = [
+  {
+    en:"Your phone still works, but it no longer receives software updates.",
+    zh:"你的手機還能使用，但是已經不再收到軟體更新。誰應該先採取行動？"
+  },
+  {
+    en:"Repairing your phone costs almost as much as buying a new one.",
+    zh:"修理手機幾乎和買新手機一樣貴。誰能改善這個問題？"
+  },
+  {
+    en:"A family keeps old phones because they worry about personal data.",
+    zh:"一家人擔心個資外洩，把舊手機放在抽屜。誰應該提供協助？"
+  }
+];
+
+function createState(){
+  return {
+    videoTitle:"",
+    videoUrl:"",
+    teams:Array.from({length:6},(_,i)=>({
+      id:i+1,
+      role:"",
+      room:"",
+      answers:{},
+      votes:{},
+      completed:false,
+      updated:""
+    }))
+  };
+}
+
+let state=createState();
+let storageAvailable=true;
+let currentGroup=1;
+let dirty=false;
+let currentPage="learn";
+
+try{
+  const raw=localStorage.getItem(STORAGE_KEY);
+  if(raw){
+    const saved=JSON.parse(raw);
+    if(
+      !Array.isArray(saved.teams) ||
+      saved.teams.length!==6 ||
+      !saved.teams.every((t,i)=>
+        t && t.id===i+1 &&
+        typeof t.answers==="object" &&
+        t.answers!==null &&
+        typeof t.votes==="object" &&
+        t.votes!==null &&
+        ["",...ROLES].includes(t.role) &&
+        ["","A","B"].includes(t.room)
+      )
+    ){
+      throw new Error("本機資料格式不符");
+    }
+    state=saved;
+  }
+}catch(e){
+  storageAvailable=false;
+  setStatus("無法讀取本機儲存，暫用記憶體模式；離開前請下載備份。");
+}
+
+function setStatus(message){
+  $("status").textContent=message;
+}
+
+function persist(){
+  if(!storageAvailable){
+    setStatus("目前是記憶體模式，請下載資料備份，關閉頁面後可能遺失。");
+    return false;
+  }
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+    return true;
+  }catch(e){
+    storageAvailable=false;
+    setStatus("本機儲存失敗；資料仍在本頁，請立即下載備份。");
+    return false;
+  }
+}
+
+function team(){
+  return state.teams[currentGroup-1];
+}
+
+function collectAnswers(){
+  return Object.fromEntries(
+    FIELDS.map(key=>[key,$(key).value.trim()])
+  );
+}
+
+function taskProgress(t){
+  const a=t.answers;
+  return [
+    a.members && a.jobs,
+    t.role && a.position,
+    a.claim && a.evidence1 && a.source1 && a.why1 &&
+      a.evidence2 && a.source2 && a.why2,
+    a.rebuttal && a.question,
+    a.script
+  ].filter(Boolean).length;
+}
+
+function storeDraft(){
+  if(!dirty) return true;
+  if(team().completed) return true;
+  team().answers=collectAnswers();
+  team().updated=new Date().toISOString();
+  const ok=persist();
+  dirty=false;
+  return ok;
+}
+
+function showPage(page){
+  storeDraft();
+  currentPage=page;
+  PAGES.forEach(name=>$(name).hidden=name!==page);
+  document.querySelectorAll("[data-page]").forEach(button=>{
+    button.classList.toggle("active",button.dataset.page===page);
+  });
+  render();
+}
+
+function render(){
+  const t=team();
+  $("groupSummary").textContent=
+    `第 ${t.id} 組｜${t.role?ROLE_NAMES[t.role]:"尚未抽籤"}｜`+
+    `${t.room?"場次 "+t.room:"尚未分場"}｜`+
+    `${t.completed?"已完成":"草稿"}`;
+
+  $("progress").textContent=`任務完成度 ${taskProgress(t)} / 5`;
+  $("workFields").disabled=t.completed;
+  $("saveButton").disabled=t.completed;
+  $("submitButton").disabled=t.completed;
+  $("reopenButton").disabled=!t.completed;
+
+  const guides={
+    Government:"政府：制定規範與回收制度。We can make rules. 想想執行與經費。",
+    Company:"企業：改善設計、維修與更新支援。We can make better products. 想想成本。",
+    Consumer:"消費者：延長使用、維修與正確回收。We can use phones longer. 想想資訊與選擇。"
+  };
+  $("roleGuide").textContent=guides[t.role]||"請先到抽籤頁取得角色。";
+
+  renderVotes();
+  renderDraw();
+  renderOverview();
+  renderSpeech();
+}
+
+function loadGroup(){
+  const a=team().answers;
+  FIELDS.forEach(key=>$(key).value=a[key]||"");
+  dirty=false;
+  render();
+}
+
+function renderVotes(){
+  const index=Number($("scenario").value);
+  const scenario=SCENARIOS[index];
+  $("scenarioEnglish").textContent=scenario.en;
+  $("scenarioChinese").textContent=scenario.zh;
+  $("myVote").textContent=team().votes[index]
+    ?"目前小組選擇："+ROLE_NAMES[team().votes[index]]
+    :"目前小組尚未投票。";
+
+  $("voteButtons").replaceChildren();
+  $("voteResults").replaceChildren();
+
+  ROLES.forEach(role=>{
+    const button=document.createElement("button");
+    button.textContent=ROLE_NAMES[role];
+    button.onclick=()=>{
+      storeDraft();
+      team().votes[index]=role;
+      const ok=persist();
+      renderVotes();
+      if(ok) setStatus("已記錄目前組別的一票，可重新選擇。");
+    };
+    $("voteButtons").append(button);
+
+    const card=document.createElement("div");
+    card.className="role";
+    const heading=document.createElement("strong");
+    heading.textContent=ROLE_NAMES[role];
+    const count=document.createElement("p");
+    count.textContent=
+      state.teams.filter(t=>t.votes[index]===role).length+" 票";
+    card.append(heading,count);
+    $("voteResults").append(card);
+  });
+}
+
+function makeTable(headers,rows){
+  const table=document.createElement("table");
+  const thead=document.createElement("thead");
+  const headerRow=document.createElement("tr");
+  headers.forEach(text=>{
+    const th=document.createElement("th");
+    th.textContent=text;
+    headerRow.append(th);
+  });
+  thead.append(headerRow);
+  table.append(thead);
+
+  const tbody=document.createElement("tbody");
+  rows.forEach(row=>{
+    const tr=document.createElement("tr");
+    row.forEach(text=>{
+      const td=document.createElement("td");
+      td.textContent=String(text);
+      tr.append(td);
+    });
+    tbody.append(tr);
+  });
+  table.append(tbody);
+  return table;
+}
+
+function renderDraw(){
+  $("remaining").replaceChildren();
+  ROLES.forEach(role=>{
+    const card=document.createElement("div");
+    card.className="role";
+    card.textContent=
+      ROLE_NAMES[role]+"｜剩餘 "+
+      (2-state.teams.filter(t=>t.role===role).length)+" 組";
+    $("remaining").append(card);
+  });
+
+  $("drawButton").disabled=Boolean(team().role);
+  $("drawResult").textContent=team().role
+    ?`第 ${currentGroup} 組：${ROLE_NAMES[team().role]}，${team().room} 場`
+    :"確認目前組別後，按下抽籤。";
+
+  $("drawBoard").replaceChildren(
+    makeTable(
+      ["組別","角色","場次"],
+      state.teams.map(t=>[
+        "第 "+t.id+" 組",
+        t.role?ROLE_NAMES[t.role]:"待抽",
+        t.room||"—"
+      ])
+    )
+  );
+}
+
+$("drawButton").onclick=()=>{
+  storeDraft();
+  const t=team();
+  if(t.role){
+    setStatus("這一組已抽過，角色固定。");
+    return;
+  }
+
+  const slots=[];
+  ROLES.forEach(role=>{
+    const used=state.teams.filter(item=>item.role===role).length;
+    for(let n=used;n<2;n++) slots.push(role);
+  });
+
+  if(!slots.length){
+    setStatus("所有角色名額已分配。");
+    return;
+  }
+
+  const role=slots[Math.floor(Math.random()*slots.length)];
+  t.room=state.teams.some(item=>item.role===role)?"B":"A";
+  t.role=role;
+  t.updated=new Date().toISOString();
+  const ok=persist();
+  render();
+  if(ok) setStatus("角色已抽出並保存在目前瀏覽器，不可重抽。");
+};
+
+function renderOverview(){
+  $("overviewTable").replaceChildren(
+    makeTable(
+      ["組別","角色","場次","任務","狀態","更新時間"],
+      state.teams.map(t=>[
+        "第 "+t.id+" 組",
+        t.role||"未抽",
+        t.room||"—",
+        taskProgress(t)+"/5",
+        t.completed?"已完成":"草稿",
+        t.updated?new Date(t.updated).toLocaleString("zh-TW"):"尚無"
+      ])
+    )
+  );
+}
+
+function renderSpeech(){
+  $("speechHeading").textContent=
+    `Group ${currentGroup} · ${team().role||"Role not assigned"} · `+
+    `Room ${team().room||"—"}`;
+
+  $("speechText").textContent=
+    $("script").value||"尚未建立講稿，請到「小組準備」完成內容。";
+}
+
+function updateScaffold(){
+  const examples={
+    basic:"We are ___. We can ___. We see ___. Please ___.",
+    guided:"We believe ___ because ___. According to the video, ___. This shows ___. We understand your point, but ___.",
+    challenge:"Although ___, we think ___. Our evidence suggests ___. One limitation is ___. We can work together by ___."
+  };
+  $("scaffold").textContent=examples[$("level").value];
+}
+
+$("generateButton").onclick=()=>{
+  const t=team();
+  if(!t.role){
+    setStatus("請先抽取角色，再整理講稿。");
+    return;
+  }
+  if($("script").value && !confirm("重新整理會取代目前講稿，確定嗎？")){
+    return;
+  }
+  const a=collectAnswers();
+  $("script").value=
+`Hello everyone. We are the ${t.role} group.
+
+${a.claim}
+
+According to the video (${a.source1}), ${a.evidence1}
+${a.why1}
+
+Our second piece of evidence (${a.source2}) is: ${a.evidence2}
+${a.why2}
+
+${a.rebuttal}
+
+Our question is: ${a.question}
+
+Thank you for listening.`;
+
+  dirty=true;
+  const ok=storeDraft();
+  render();
+  if(ok) setStatus("講稿已整理並儲存，請檢查、修改及練習。");
+};
+
+$("saveButton").onclick=()=>{
+  dirty=true;
+  const ok=storeDraft();
+  render();
+  if(ok) setStatus("目前組別草稿已儲存在這台瀏覽器。");
+};
+
+$("submitButton").onclick=()=>{
+  team().answers=collectAnswers();
+  if(taskProgress(team())!==5){
+    dirty=true;
+    setStatus("請先抽籤並完成五項任務，包括兩項證據、來源與解釋。");
+    return;
+  }
+  if(!confirm("要將本機這一組標記為已完成嗎？")){
+    dirty=true;
+    return;
+  }
+  team().completed=true;
+  team().updated=new Date().toISOString();
+  dirty=false;
+  const ok=persist();
+  render();
+  if(ok) setStatus("本機作業已標記完成，沒有傳送到外部後台。");
+};
+
+$("reopenButton").onclick=()=>{
+  if(!confirm("重新開放目前組別編輯？")) return;
+  team().completed=false;
+  const ok=persist();
+  render();
+  if(ok) setStatus("已重新開放編輯。");
+};
+
+$("group").onchange=()=>{
+  const ok=storeDraft();
+  currentGroup=Number($("group").value);
+  loadGroup();
+  if(ok && storageAvailable){
+    setStatus("已切換到第 "+currentGroup+" 組。");
+  }
+};
+
+$("scenario").onchange=renderVotes;
+$("level").onchange=updateScaffold;
+
+FIELDS.forEach(key=>{
+  $(key).addEventListener("input",()=>{
+    dirty=true;
+    renderSpeech();
+    setStatus("有尚未儲存的修改，請按「儲存本機草稿」。");
+  });
+});
+
+document.querySelectorAll("[data-page]").forEach(button=>{
+  button.onclick=()=>showPage(button.dataset.page);
+});
+
+$("saveVideo").onclick=()=>{
+  const value=$("videoUrl").value.trim();
+  if(value){
+    try{
+      const url=new URL(value);
+      if(url.protocol!=="https:") throw new Error();
+    }catch(e){
+      setStatus("影片網址請使用完整的 HTTPS 網址。");
+      return;
+    }
+  }
+  state.videoTitle=$("videoTitle").value.trim();
+  state.videoUrl=value;
+  if(persist()) setStatus("影片設定已儲存。");
+};
+
+$("openVideo").onclick=()=>{
+  const value=$("videoUrl").value.trim();
+  try{
+    const url=new URL(value);
+    if(url.protocol!=="https:") throw new Error();
+    window.open(url.href,"_blank","noopener,noreferrer");
+  }catch(e){
+    setStatus("請先填入有效的 HTTPS 影片網址。");
+  }
+};
+
+$("printButton").onclick=()=>{
+  renderSpeech();
+  window.print();
+};
+
+$("exportButton").onclick=()=>{
+  storeDraft();
+  const blob=new Blob(
+    [JSON.stringify(state,null,2)],
+    {type:"application/json;charset=utf-8"}
+  );
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement("a");
+  link.href=url;
+  link.download="E-Waste-Debate-Lab-Backup.json";
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),10000);
+  setStatus("已要求下載本機備份，請確認瀏覽器下載結果。");
+};
+
+window.addEventListener("beforeunload",event=>{
+  if(dirty){
+    event.preventDefault();
+    event.returnValue="";
+  }
+});
+
+$("videoTitle").value=state.videoTitle||"";
+$("videoUrl").value=state.videoUrl||"";
+loadGroup();
+updateScaffold();
+showPage("learn");
+</script>
+</body>
+</html>
